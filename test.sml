@@ -63,3 +63,37 @@ and alternate3 [] f g = 0
     in 
       alternate2 tmp f g
     end 
+
+(*Question 5.6*)
+fun zipRecycle(xs, ys) = 
+  let
+    fun helper(x, y, len) =
+      if len = 0 
+        then [] 
+      else
+        if null x 
+          then helper(xs, y, len) 
+        else 
+          if null y
+            then helper(x, ys, len) 
+          else
+            (hd x, hd y) :: helper(tl x, tl y, len - 1)
+    fun list_length x = if null x then 0 else 1 + list_length (tl x)
+    val ly = list_length ys
+  in
+    helper(xs, ys, ly)
+  end
+(*
+zipRecycle([1,2,3], ["a","b","c"]);
+zipRecycle([1,2,3,4,5], ["a", "b","c"]);
+zipRecycle([1,2,3], ["a", "b", "c","d","e"]);*)
+
+(*Question 5.8*)
+fun lookup(xs: (string * int) list, key: string) =
+  if null xs 
+    then NONE 
+  else
+    if #1(hd xs) = key 
+      then SOME (#2(hd xs)) 
+    else
+      lookup(tl xs, key)

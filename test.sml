@@ -116,14 +116,14 @@ fun bind NONE (SOME y) f = NONE
 
 
 (*Question 5.8*)
-fun lookup(xs: (string * int) list, key: string) =
+fun lookup (xs: (string * int) list) (key: string) =
   if null xs 
     then NONE 
   else
     if #1(hd xs) = key 
       then SOME (#2(hd xs)) 
     else
-      lookup(tl xs, key)
+      lookup (tl xs) key
 
 (*Question 5.9*)
 fun getitem key xs = 

@@ -45,3 +45,21 @@ and sub(L) =
   if L = nil then 0 else 0 - alternate(tl(L));
 
 alternate [1,2,3,4];
+
+(*Question 5.4*)
+fun alternate2 [] f g = 0
+  | alternate2 [x1, x2] f g = f(x1, x2)
+  | alternate2 (x1::x2::xs) f g = 
+    let 
+      val tmp = f(x1, x2) :: xs
+    in 
+      alternate3 tmp f g
+    end 
+and alternate3 [] f g = 0
+  | alternate3 [x1, x2] f g = g(x1, x2)
+  | alternate3 (x1::x2::xs) f g = 
+    let 
+      val tmp = g(x1, x2) :: xs
+    in 
+      alternate2 tmp f g
+    end 

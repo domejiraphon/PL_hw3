@@ -73,8 +73,8 @@ and alternate3 [] f g = 0
     end 
 
 (*Question 5.5*)
-fun myfoldl f y [] = []
-  | myfoldl f y (x::xs) = 
+fun scan_left f y [] = []
+  | scan_left f y (x::xs) = 
   let
     fun acc (y, ys) =
       if null ys 
@@ -84,7 +84,7 @@ fun myfoldl f y [] = []
   in 
     y :: acc(y, x::xs)
   end 
-  
+
 (*Question 5.6*)
 fun zipRecycle(xs, ys) = 
   let
@@ -107,13 +107,12 @@ fun zipRecycle(xs, ys) =
 (*
 zipRecycle([1,2,3], ["a","b","c"]);
 zipRecycle([1,2,3,4,5], ["a", "b","c"]);
-zipRecycle([1,2,3], ["a", "b", "c","d","e"]);
-fun add x y = x+y;
-fun bind(x:option,  y:option, f) =
-  if x = None orelse y = None 
-    then None 
-  else
-    f(x y)*)
+zipRecycle([1,2,3], ["a", "b", "c","d","e"]);*)
+(*Question 5.7*)
+fun add x y = x + y;
+fun bind NONE (SOME y) f = NONE 
+  | bind (SOME x) NONE f = NONE
+  | bind (SOME x) (SOME y) f = SOME (f x y)
 
 
 (*Question 5.8*)
@@ -140,4 +139,14 @@ fun getitem key xs =
       else 
         getitem (key-1) (tl xs)
   end 
+
+fun defaultToThree (NONE : int option):int = 3
+  | defaultToThree (SOME x) = x
+
+(*Question 5.10*)
+fun getitem2 NONE xs = NONE
+  | getitem2 (SOME key) [] = NONE
+  | getitem2 (SOME key) xs = 
+    getitem key xs; 
+
 

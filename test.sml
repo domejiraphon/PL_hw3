@@ -26,7 +26,15 @@ digitsPos(352663);
 
 (*Question 5.2*)
 
-
+fun additivePersistence(x) = 
+  let 
+    fun sum_all_digits(x) = if x < 10 then x else x mod 10 + sum_all_digits(x div 10)
+    fun count_digits_length(x) = if x < 10 then 1 else 1 + count_digits_length(x div 10)
+    val tmp = sum_all_digits(x)
+    val tmp_length = count_digits_length(x)
+  in
+    if tmp_length = 1 then 0 else 1+ additivePersistence(tmp)
+  end
 
 fun digitalRoot(x) = 
   let 
@@ -86,7 +94,14 @@ fun zipRecycle(xs, ys) =
 (*
 zipRecycle([1,2,3], ["a","b","c"]);
 zipRecycle([1,2,3,4,5], ["a", "b","c"]);
-zipRecycle([1,2,3], ["a", "b", "c","d","e"]);*)
+zipRecycle([1,2,3], ["a", "b", "c","d","e"]);
+fun add x y = x+y;
+fun bind(x:option,  y:option, f) =
+  if x = None orelse y = None 
+    then None 
+  else
+    f(x y)*)
+
 
 (*Question 5.8*)
 fun lookup(xs: (string * int) list, key: string) =
@@ -98,6 +113,7 @@ fun lookup(xs: (string * int) list, key: string) =
     else
       lookup(tl xs, key)
 
+(*Question 5.9*)
 fun getitem key xs = 
   let
     fun list_length x = if null x then 0 else 1 + list_length (tl x)

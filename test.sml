@@ -19,21 +19,23 @@ fun convertback [] = []
     end
 
 fun digitsPos(x) = convertback(explode(Int.toString(x)));*)
-fun digitsPos(x) = if x < 10 then [x] else digitsPos(x) @ [x mod 10];
+fun digitsPos(x) = if x < 10 then [x] else digitsPos(x div 10) @ [x mod 10];
 
 digitsPos(3124);
 digitsPos(352663);
 
 (*Question 5.2*)
 
-fun count_digits_length(x) = if x < 10 then 1 else 1 + count_digits_length(x div 10);
+
 
 fun digitalRoot(x) = 
   let 
     fun sum_all_digits(x) = if x < 10 then x else x mod 10 + sum_all_digits(x div 10)
+    fun count_digits_length(x) = if x < 10 then 1 else 1 + count_digits_length(x div 10)
     val tmp = sum_all_digits(x)
+    val tmp_length = count_digits_length(x)
   in
-    tmp
+    if tmp_length = 1 then tmp else digitalRoot(tmp)
   end
 
 (*Question 5.3*)

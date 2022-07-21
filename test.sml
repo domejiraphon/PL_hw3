@@ -79,9 +79,9 @@ fun zipRecycle(xs, ys) =
           else
             (hd x, hd y) :: helper(tl x, tl y, len - 1)
     fun list_length x = if null x then 0 else 1 + list_length (tl x)
-    val ly = list_length ys
+    val len_y = list_length ys
   in
-    helper(xs, ys, ly)
+    helper(xs, ys, len_y)
   end
 (*
 zipRecycle([1,2,3], ["a","b","c"]);
@@ -97,3 +97,17 @@ fun lookup(xs: (string * int) list, key: string) =
       then SOME (#2(hd xs)) 
     else
       lookup(tl xs, key)
+
+fun getitem key xs = 
+  let
+    fun list_length x = if null x then 0 else 1 + list_length (tl x)
+    val len_x = list_length xs
+  in 
+    if key > len_x
+      then NONE 
+    else
+      if key = 1
+        then SOME (hd xs)
+      else 
+        getitem (key-1) (tl xs)
+  end 

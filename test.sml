@@ -4,8 +4,8 @@ fun test1 (x, []) = [x]
 test1(2, [1,2]);
 test1("hello", ["there"]);
 
-fun test2 pred [] y = [y]
-  | test2 pred (x::xs) y = pred (x, y) :: [y];
+fun test2 pred [] y = false
+  | test2 pred (x::xs) y = pred (x, y) orelse test2 pred xs y;
 
 (*test2((fn (i, j) => i+1) 2);*)
 
@@ -72,6 +72,19 @@ and alternate3 [] f g = 0
       alternate2 tmp f g
     end 
 
+(*Question 5.5*)
+fun myfoldl f y [] = []
+  | myfoldl f y (x::xs) = 
+  let
+    fun acc (y, ys) =
+      if null ys 
+        then []
+      else
+        (f (hd ys) y) :: acc((f (hd ys) y), tl ys)
+  in 
+    y :: acc(y, x::xs)
+  end 
+  
 (*Question 5.6*)
 fun zipRecycle(xs, ys) = 
   let
@@ -127,3 +140,4 @@ fun getitem key xs =
       else 
         getitem (key-1) (tl xs)
   end 
+

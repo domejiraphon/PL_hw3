@@ -13,9 +13,9 @@ datatype ('a, 'b) tree = Leaf of 'a
                         | Node of 'a * 'b;
 fun test3 (Node(x, y)) pred = 
   let
-    val tmp = pred x
+    val tmp = Leaf (pred x)
   in
-    Node(x, tmp)
+    tmp
   end
 
 

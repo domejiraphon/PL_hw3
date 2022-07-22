@@ -4,21 +4,21 @@ fun test1 (x, []) = [x]
 test1(2, [1,2]);
 test1("hello", ["there"]);
 
-fun test2 pred [] y = false
-  | test2 pred (x::xs) y = pred (x, y) orelse test2 pred xs y;
+fun test2 pred [] y = y
+  | test2 pred (x::xs) y = test2 pred xs (pred(x, y));
 
-(*test2((fn (i, j) => i+1) 2);*)
+(*test2 (fn (x, y) => y) [1,2,5] 4;*)
 
-(*Question 5.1
-fun convertback [] = []
-  | convertback (x::xs) = 
-    let 
-      fun intFromChar(x) = let val SOME i = Int.fromString(Char.toString(x)) in i end
-    in
-      intFromChar(x):: (convertback xs)
-    end
+datatype ('a, 'b) tree = Leaf of 'a
+                        | Node of 'a * 'b;
+fun test3 (Node(x, y)) pred = 
+  let
+    val tmp = pred x
+  in
+    Node(x, tmp)
+  end
 
-fun digitsPos(x) = convertback(explode(Int.toString(x)));*)
+
 fun digitsPos(x) = if x < 10 then [x] else digitsPos(x div 10) @ [x mod 10];
 
 digitsPos(3124);

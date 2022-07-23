@@ -53,7 +53,7 @@ struct
     let 
       val char_list = explode(key)
     in 
-      lookup_depth trie char_list
+      lookup_depth(trie, char_list)
     end 
 
   fun child([], ([x], value)) = 
@@ -70,11 +70,11 @@ struct
             node::child(trie_list, ((x::xs), value))
         end
   and insert_helper(Root(trie_value, trie_list), (nil, value)) = 
-        Root((SOME value), trie_list)
+        Root(SOME value, trie_list)
     | insert_helper(Root(trie_value, trie_list), (key, value)) = 
         Root(trie_value, child(trie_list, (key, value)))
     | insert_helper(Node(node_value, node_key, trie_list), (nil, value)) = 
-        Node((SOME value), node_key, trie_list)
+        Node(SOME value, node_key, trie_list)
     | insert_helper(Node(node_value, node_key, trie_list), (key, value)) = 
         Node(node_value, node_key, child(trie_list, (key, value)))
 
@@ -86,3 +86,11 @@ struct
     end
 
 end;
+
+open Trie; 
+
+val trie = insert(empty, ("bad", 1));
+val trie = insert(trie, ("badge", 2));
+val trie = insert(trie, ("icon", 3));
+val trie = insert(trie, ("", 4));
+val trie = insert(trie, ("badly", 5));

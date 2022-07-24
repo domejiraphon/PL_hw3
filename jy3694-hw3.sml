@@ -121,13 +121,13 @@ else print("scan_left fails\n"));*)
 (*============Question 5.6================*)
 fun zipRecycle(xs, ys) = 
   let
-    fun helper2 x y 0 = []
-      | helper2 [] (T as (head_y::tail_y)) len = helper2 xs T len
-      | helper2 (T as (head_x::tail_x)) [] len = helper2 T ys len
-      | helper2 (head_x::tail_x) (head_y::tail_y) len = (head_x, head_y)::(helper2 tail_x tail_y (len-1))
+    fun helper x y 0 = []
+      | helper [] (T as (head_y::tail_y)) len = helper xs T len
+      | helper (T as (head_x::tail_x)) [] len = helper T ys len
+      | helper (head_x::tail_x) (head_y::tail_y) len = (head_x, head_y)::(helper tail_x tail_y (len-1))
     fun list_length x = if null x then 0 else 1 + list_length (tl x)
   in
-    helper2 xs ys (list_length ys)
+    helper xs ys (list_length ys)
   end;
 (*
 (if (zipRecycle([1,2,3], ["a","b","c"])) = [(1, "a"), (2, "b"), (3, "c")] 
@@ -254,7 +254,7 @@ struct
       if key = x then lookup_branch node_list xs
       else lookup_branch trie_list (x::xs)
      
-  and lookup_depth((Root(value, trie_list)), []) = value
+  fun lookup_depth((Root(value, trie_list)), []) = value
     | lookup_depth((Root(value, trie_list)), (x::xs)) = lookup_branch trie_list (x::xs)
     | lookup_depth((Node(value, key, trie_list)), []) = value
     | lookup_depth((Node(value, key, trie_list)), (x::xs)) = lookup_branch trie_list (x::xs)
@@ -279,7 +279,7 @@ struct
 end;
 
 
-
+(*
 (*Check the case with invalid key*)
 open Trie; 
 
@@ -289,6 +289,10 @@ val trie = insert(trie, ("icon", 3));
 val trie = insert(trie, ("", 4));
 val trie = insert(trie, ("badly", 5));
 (if (lookup trie "b") = NONE then print("lookup passes\n") 
+else print("lookup fails\n"));
+(if (lookup trie "ba") = NONE then print("lookup passes\n") 
+else print("lookup fails\n"));
+(if (lookup trie "iconnn") = NONE then print("lookup passes\n") 
 else print("lookup fails\n"));
 (if (lookup trie "test") = NONE then print("lookup passes\n") 
 else print("lookup fails\n"));
@@ -303,4 +307,4 @@ else print("lookup fails\n"));
 (if (lookup trie "icon") = SOME 3 then print("lookup passes\n") 
 else print("lookup fails\n"));
 (if (lookup trie "") = SOME 4 then print("lookup passes\n") 
-else print("lookup fails\n"));
+else print("lookup fails\n"));*)

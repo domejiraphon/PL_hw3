@@ -35,17 +35,17 @@ Question 5
 
 (*============Question 5.1================*)
 fun digitsPos x = if x < 10 then [x] else digitsPos (x div 10) @ [x mod 10];
-
+(*
 (if (digitsPos 3124) = [3,1,2,4] then print("digitsPos passes\n") 
 else print("digitsPos fails\n"));
 (if (digitsPos 352663) = [3,5,2,6,6,3] then print("digitsPos passes\n") 
-else print("digitsPos fails\n"));
+else print("digitsPos fails\n"));*)
 
 (*============Question 5.2================*)
-fun sum_all_digits(x) = if x < 10 then x else x mod 10 + sum_all_digits(x div 10);
-fun count_digits_length(x) = if x < 10 then 1 else 1 + count_digits_length(x div 10);
 fun additivePersistence x = 
   let 
+    fun sum_all_digits(x) = if x < 10 then x else x mod 10 + sum_all_digits(x div 10)
+    fun count_digits_length(x) = if x < 10 then 1 else 1 + count_digits_length(x div 10)
     val tmp = sum_all_digits(x)
     val tmp_length = count_digits_length(x)
   in
@@ -55,12 +55,14 @@ fun additivePersistence x =
 
 fun digitalRoot x = 
   let 
+    fun sum_all_digits(x) = if x < 10 then x else x mod 10 + sum_all_digits(x div 10)
+  fun count_digits_length(x) = if x < 10 then 1 else 1 + count_digits_length(x div 10)
     val tmp = sum_all_digits(x)
     val tmp_length = count_digits_length(x)
   in
     if tmp_length = 1 then tmp else (digitalRoot tmp)
   end;
-
+(*
 (if (additivePersistence 9876) = 2 then print("additivePersistence passes\n") 
 else print("additivePersistence fails\n"));
 (if (digitalRoot 9876) = 3 then print("digitalRoot passes\n") 
@@ -68,16 +70,16 @@ else print("digitalRoot fails\n"));
 (if (additivePersistence 5) = 1 then print("additivePersistence passes\n") 
 else print("additivePersistence fails\n"));
 (if (digitalRoot 5) = 5 then print("digitalRoot passes\n") 
-else print("digitalRoot fails\n"));
+else print("digitalRoot fails\n"));*)
 
 (*============Question 5.3================*)
 fun alternate(L) = 
   if L = nil then 0 else hd(L) + sub(tl(L))
 and sub(L) = 
   if L = nil then 0 else 0 - alternate(tl(L));
-
+(*
 (if (alternate [1,2,3,4]) = ~2 then print("alternate passes\n") 
-else print("alternate fails\n"));
+else print("alternate fails\n"));*)
 
 (*============Question 5.4================*)
 fun alternate2 [] f g = 0
@@ -96,9 +98,9 @@ and alternate3 [] f g = 0
     in 
       alternate2 tmp f g
     end;
-
+(*
 (if (alternate2 [1,2,3,4] op+ op-) = 4 then print("alternate2 passes\n") 
-else print("alternate2 fails\n"));
+else print("alternate2 fails\n"));*)
 
 (*============Question 5.5================*)
 fun scan_left f y [] = []
@@ -112,9 +114,9 @@ fun scan_left f y [] = []
   in 
     y :: acc(y, x::xs)
   end;
-
+(*
 (if (scan_left (fn x => fn y => x+y) 0 [1, 2, 3]) = [0, 1, 3, 6] then print("scan_left passes\n") 
-else print("scan_left fails\n"));
+else print("scan_left fails\n"));*)
 
 (*============Question 5.6================*)
 fun zipRecycle(xs, ys) = 
@@ -127,7 +129,7 @@ fun zipRecycle(xs, ys) =
   in
     helper2 xs ys (list_length ys)
   end;
-
+(*
 (if (zipRecycle([1,2,3], ["a","b","c"])) = [(1, "a"), (2, "b"), (3, "c")] 
   then print("zipRecycle passes\n") 
 else print("zipRecycle fails\n"));
@@ -139,7 +141,7 @@ else print("zipRecycle fails\n"));
 else print("zipRecycle fails\n"));
 (if (zipRecycle ([1,2,3], ["a","b","c", "d", "e", "f", "g"])) = [(1, "a"), (2, "b"), (3, "c"), (1, "d"), (2, "e"), (3, "f"), (1, "g")] 
   then print("zipRecycle passes\n") 
-else print("zipRecycle fails\n"));
+else print("zipRecycle fails\n"));*)
 
 (*============Question 5.7================*)
 fun add x y = x + y;
@@ -147,12 +149,13 @@ fun bind NONE (SOME y) f = NONE
   | bind (SOME x) NONE f = NONE
   | bind (SOME x) (SOME y) f = SOME (f x y);
 
+(*
 (if (bind (SOME 4) (SOME 3) add) = (SOME 7)
   then print("bind passes\n") 
 else print("bind fails\n"));
 (if (bind (SOME 4) NONE add) = NONE
   then print("bind passes\n") 
-else print("bind fails\n"));
+else print("bind fails\n"));*)
 
 (*============Question 5.8================*)
 fun lookup (xs: (string * int) list) (key: string) =
@@ -163,7 +166,7 @@ fun lookup (xs: (string * int) list) (key: string) =
       then SOME (#2(hd xs)) 
     else
       lookup (tl xs) key;
-
+(*
 (if (lookup [("hello",1), ("world", 2)] "hello") = (SOME 1)
   then print("lookup passes\n") 
 else print("lookup fails\n"));
@@ -172,7 +175,7 @@ else print("lookup fails\n"));
 else print("lookup fails\n"));
 (if (lookup [("hello",1), ("world", 2)] "he") = NONE
   then print("lookup passes\n") 
-else print("lookup fails\n"));
+else print("lookup fails\n"));*)
 
 (*============Question 5.9================*)
 fun getitem key xs = 
@@ -188,13 +191,13 @@ fun getitem key xs =
       else 
         getitem (key-1) (tl xs)
   end;
-  
+(*
 (if (getitem 2 [1,2,3,4]) = (SOME 2)
   then print("getitem passes\n") 
 else print("getitem fails\n"));
 (if (getitem 5 [1,2,3,4]) = NONE
   then print("getitem passes\n") 
-else print("getitem fails\n"));
+else print("getitem fails\n"));*)
 
 
 (*============Question 5.10================*)
@@ -202,7 +205,7 @@ fun getitem2 NONE xs = NONE
   | getitem2 (SOME key) [] = NONE
   | getitem2 (SOME key) xs = 
     getitem key xs; 
-
+(*
 (if (getitem2 (SOME 2) [1,2,3,4]) = (SOME 2)
   then print("getitem2 passes\n") 
 else print("getitem2 fails\n"));
@@ -217,4 +220,87 @@ else print("getitem2 fails\n"));
 else print("getitem2 fails\n"));
 (if (getitem2 (SOME 5) ([] : int list)) = NONE
   then print("getitem2 passes\n") 
-else print("getitem2 fails\n"));
+else print("getitem2 fails\n"));*)
+
+(*============Question 6================*)
+signature DICT = 
+sig 
+  type key = string
+  type 'a entry = key * 'a
+  type 'a dict 
+
+  val empty: 'a dict 
+  val lookup : 'a dict -> key -> 'a option 
+  val insert: 'a dict * 'a entry -> 'a dict 
+end;
+
+structure Trie :> DICT = 
+struct 
+  type key = string 
+  type 'a entry = key * 'a 
+
+  datatype 'a trie = 
+    Root of 'a option * 'a trie list 
+    | Node of 'a option * char * 'a trie list 
+  
+  type 'a dict = 'a trie 
+
+  val empty = Root(NONE, [])
+
+  fun lookup_branch [] xs = NONE 
+    | lookup_branch (Node(value, key, _)::trie_list) [x]= 
+      if key = x then value else NONE
+    | lookup_branch (Node(value, key, node_list)::trie_list) (x::xs)= 
+      if key = x then lookup_branch node_list xs
+      else lookup_branch trie_list (x::xs)
+     
+  and lookup_depth((Root(value, trie_list)), []) = value
+    | lookup_depth((Root(value, trie_list)), (x::xs)) = lookup_branch trie_list (x::xs)
+    | lookup_depth((Node(value, key, trie_list)), []) = value
+    | lookup_depth((Node(value, key, trie_list)), (x::xs)) = lookup_branch trie_list (x::xs)
+     
+
+  fun lookup trie key = lookup_depth(trie, explode key)
+   
+
+  fun child([], ([x], value)) = [Node(SOME value, x, [])]
+    | child([], ((x::xs), value)) = [Node(NONE, x, child([], (xs, value)))]
+    | child(Node(node_value, node_key, node_list)::tail_node, ((x::xs), value)) = 
+      if x = node_key then insert_helper(Node(node_value, node_key, node_list), (xs, value))::tail_node
+      else Node(node_value, node_key, node_list)::child(tail_node, ((x::xs), value))
+        
+  and insert_helper(Root(trie_value, trie_list), (nil, value)) = Root(SOME value, trie_list)
+    | insert_helper(Root(trie_value, trie_list), (key, value)) = Root(trie_value, child(trie_list, (key, value)))
+    | insert_helper(Node(node_value, node_key, trie_list), (nil, value)) = Node(SOME value, node_key, trie_list)
+    | insert_helper(Node(node_value, node_key, trie_list), (key, value)) = Node(node_value, node_key, child(trie_list, (key, value)))
+
+  fun insert (trie, (key, value)) = insert_helper(trie, (explode key, value))
+   
+end;
+
+
+
+(*Check the case with invalid key*)
+open Trie; 
+
+val trie = insert(empty, ("bad", 1));
+val trie = insert(trie, ("badge", 2));
+val trie = insert(trie, ("icon", 3));
+val trie = insert(trie, ("", 4));
+val trie = insert(trie, ("badly", 5));
+(if (lookup trie "b") = NONE then print("lookup passes\n") 
+else print("lookup fails\n"));
+(if (lookup trie "test") = NONE then print("lookup passes\n") 
+else print("lookup fails\n"));
+
+(*Check the case with valid key*)
+(if (lookup trie "bad") = SOME 1 then print("lookup passes\n") 
+else print("lookup fails\n"));
+(if (lookup trie "badge") = SOME 2 then print("lookup passes\n") 
+else print("lookup fails\n"));
+(if (lookup trie "badly") = SOME 5 then print("lookup passes\n") 
+else print("lookup fails\n"));
+(if (lookup trie "icon") = SOME 3 then print("lookup passes\n") 
+else print("lookup fails\n"));
+(if (lookup trie "") = SOME 4 then print("lookup passes\n") 
+else print("lookup fails\n"));

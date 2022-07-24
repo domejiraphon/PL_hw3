@@ -140,8 +140,6 @@ fun getitem key xs =
         getitem (key-1) (tl xs)
   end 
 
-fun defaultToThree (NONE : int option):int = 3
-  | defaultToThree (SOME x) = x
 
 (*Question 5.10*)
 fun getitem2 NONE xs = NONE
@@ -149,4 +147,11 @@ fun getitem2 NONE xs = NONE
   | getitem2 (SOME key) xs = 
     getitem key xs; 
 
-
+datatype ('a, 'b) tree = Leaf of 'a
+                        | Node of 'a * 'b;
+fun test4 (Node(x, y)) pred = 
+  let
+    val tmp = Node(x, (pred x))  
+  in
+    tmp
+  end

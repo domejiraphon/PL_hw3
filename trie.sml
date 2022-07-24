@@ -23,6 +23,13 @@ struct
   val empty = Root(NONE, [])
 
   fun lookup_branch [] xs = NONE 
+    | lookup_branch (node: 'a trie list) [x]= 
+      let 
+        val Node(value, key, node_list) = (hd node)
+      in 
+        if key = x then value
+        else NONE
+      end
     | lookup_branch (node: 'a trie list) (x::xs)= 
       let 
         val Node(value, key, node_list) = (hd node)
@@ -71,7 +78,6 @@ struct
     in
       insert_helper(trie, (char_list, value))
     end
-
 end;
 
 open Trie; 
@@ -81,7 +87,9 @@ val trie = insert(trie, ("badge", 2));
 val trie = insert(trie, ("icon", 3));
 val trie = insert(trie, ("", 4));
 val trie = insert(trie, ("badly", 5));
-
+(if trie = test_obj then print("insert passes\n") 
+else print("insert fails\n"));
+(*
 val test1 = lookup trie "b";
 if test1 = NONE then "Pass" else "Fail";
 
@@ -98,4 +106,4 @@ val test4 = lookup trie "icon";
 if test4 = SOME 3 then "Pass" else "Fail";
 
 val test5 = lookup trie "";
-if test5 = SOME 4 then "Pass" else "Fail";
+if test5 = SOME 4 then "Pass" else "Fail";*)

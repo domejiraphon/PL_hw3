@@ -188,6 +188,7 @@ fun getitem key xs =
       else 
         getitem (key-1) (tl xs)
   end;
+  
 (if (getitem 2 [1,2,3,4]) = (SOME 2)
   then print("getitem passes\n") 
 else print("getitem fails\n"));
@@ -201,6 +202,7 @@ fun getitem2 NONE xs = NONE
   | getitem2 (SOME key) [] = NONE
   | getitem2 (SOME key) xs = 
     getitem key xs; 
+
 (if (getitem2 (SOME 2) [1,2,3,4]) = (SOME 2)
   then print("getitem2 passes\n") 
 else print("getitem2 fails\n"));

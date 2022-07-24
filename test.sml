@@ -8,16 +8,16 @@ fun test2 pred [] y = y
   | test2 pred (x::xs) y = test2 pred xs (pred(x, y));
 
 (*test2 (fn (x, y) => y) [1,2,5] 4;*)
-
 datatype ('a, 'b) tree = Leaf of 'a
                         | Node of 'a * 'b;
-fun test3 (Node(x, y)) pred = 
+fun test3 (Node(x, y)) pred1 pred2= 
   let
-    val tmp = Leaf (pred x)
+     val tmp1 = (pred1 x)
+     val tmp2 = (pred2 tmp1 y)
+     val tmp3 = (pred2 tmp2 y)
   in
-    tmp
+    Node(x, tmp2)
   end
-
 
 fun digitsPos(x) = if x < 10 then [x] else digitsPos(x div 10) @ [x mod 10];
 
@@ -147,11 +147,5 @@ fun getitem2 NONE xs = NONE
   | getitem2 (SOME key) xs = 
     getitem key xs; 
 
-datatype ('a, 'b) tree = Leaf of 'a
-                        | Node of 'a * 'b;
-fun test4 (Node(x, y)) pred = 
-  let
-    val tmp = Node(x, (pred x))  
-  in
-    tmp
-  end
+
+(* val tmp = Node(x, (pred x))  *)
